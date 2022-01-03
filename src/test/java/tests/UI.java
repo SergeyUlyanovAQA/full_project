@@ -1,7 +1,5 @@
 package tests;
 
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
@@ -10,12 +8,8 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class UI {
+public class UI extends TestBase {
 
-    @BeforeAll
-    static void setup() {
-        Configuration.startMaximized = true;
-    }
 
     @Test
     void pozitiveTestAuthorization() {

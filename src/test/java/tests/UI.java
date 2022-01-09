@@ -2,7 +2,6 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -13,16 +12,14 @@ public class UI extends TestBase {
 
     @Test
     void pozitiveTestAuthorization() {
-        open("https://mail.rambler.ru/");
-        switchTo().frame($("[src*='id.rambler.ru/login-20']"));
-        $("#login").setValue("mailForTesting0@rambler.ru");
-        $("#password").setValue("mailForTesting0").pressEnter();
-        $(".rui__1E3a7").shouldHave(text("mailfortesting0@rambler.ru"));
+        pageObjects.openMainPage()
+                   .authorization()
+                   .checkAuthorization();
     }
 
     @Test
     void negativeTestAuthorization() {
-        open("https://mail.rambler.ru/");
+        pageObjects.openMainPage();
         switchTo().frame($("[src*='id.rambler.ru/login-20']"));
         $("#login").setValue("null@rambler.ru");
         $("#password").setValue("null").pressEnter();
@@ -31,33 +28,24 @@ public class UI extends TestBase {
 
     @Test
     void exitFromMail() {
-        open("https://mail.rambler.ru/");
-        switchTo().frame($("[src*='id.rambler.ru/login-20']"));
-        $("#login").setValue("mailForTesting0@rambler.ru");
-        $("#password").setValue("mailForTesting0").pressEnter();
-        $(".rui__2FTrL").click();
-        $(byText("Выйти")).click();
-        $(".rui__xXIS_").shouldHave(text("Войти в почту"));
+        pageObjects.openMainPage()
+                   .authorization()
+                   .logout()
+                   .checkLogout();
     }
 
     @Test
     void sendingSimpleLetter() {
-        open("https://mail.rambler.ru/");
-        switchTo().frame($("[src*='id.rambler.ru/login-20']"));
-        $("#login").setValue("mailForTesting0@rambler.ru");
-        $("#password").setValue("mailForTesting0").pressEnter();
-        $(".rui-Button-content").click(); // перекрывает элемент
-        $("#receivers").setValue("mailForTesting0@rambler.ru");
-        $(byText("Отправить")).click();
-        $(".SentLetter-head-1P").shouldHave(text("Письмо отправлено"));
+        pageObjects.openMainPage()
+                   .authorization()
+                   .sendMassege()
+                   .checkSendMassege();
     }
 
     @Test
     void deleteMessage() {
-        open("https://mail.rambler.ru/");
-        switchTo().frame($("[src*='id.rambler.ru/login-20']"));
-        $("#login").setValue("mailForTesting0@rambler.ru");
-        $("#password").setValue("mailForTesting0").pressEnter();
+        pageObjects.openMainPage()
+                   .authorization();
         $(byText("Входящие")).click();
         $(byText("(нет темы)")).click();
         $(".rui-Tooltip-anchor").click();
@@ -66,27 +54,15 @@ public class UI extends TestBase {
 
     @Test
     void checkHeader() {
-        open("https://mail.rambler.ru/");
-        switchTo().frame($("[src*='id.rambler.ru/login-20']"));
-        $("#login").setValue("mailForTesting0@rambler.ru");
-        $("#password").setValue("mailForTesting0").pressEnter();
-        $(".rui__1HMZk").shouldHave(text("Почта"),
-                text("Новости"),
-                text("Кино"),
-                text("Спорт"),
-                text("Авто"),
-                text("Шоу-бизнес"),
-                text("Гороскопы"),
-                text("Финансы"),
-                text("Еще"));
+        pageObjects.openMainPage()
+                   .authorization()
+                   .checkResultHeader();
     }
 
     @Test
     void additionContact() {
-        open("https://mail.rambler.ru/");
-        switchTo().frame($("[src*='id.rambler.ru/login-20']"));
-        $("#login").setValue("mailForTesting0@rambler.ru");
-        $("#password").setValue("mailForTesting0").pressEnter();
+        pageObjects.openMainPage()
+                   .authorization();
         $(".tour__contacts-button").click();
         $(byText("ДОБАВИТЬ КОНТАКТ")).click();
         $("[name='email']").setValue("mailForTesting1@rambler.ru");
@@ -102,10 +78,8 @@ public class UI extends TestBase {
 
     @Test
     void deleteContact() {
-        open("https://mail.rambler.ru/");
-        switchTo().frame($("[src*='id.rambler.ru/login-20']"));
-        $("#login").setValue("mailForTesting0@rambler.ru");
-        $("#password").setValue("mailForTesting0").pressEnter();
+        pageObjects.openMainPage()
+                   .authorization();
         $(".tour__contacts-button").click();
         $(".Checkbox-root-vD").click();
         $("[data-contacts-toolbar='delete-contacts']").click();

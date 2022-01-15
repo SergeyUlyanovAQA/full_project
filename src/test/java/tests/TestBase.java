@@ -8,6 +8,7 @@ public class TestBase {
 
     PageObjects pageObjects = new PageObjects();
 
+
     @BeforeAll
     static void setup() {
         Configuration.startMaximized = true;

@@ -13,4 +13,5 @@ public class TestBase {
     static void setup() {
         Configuration.startMaximized = true;
     }
+
 }

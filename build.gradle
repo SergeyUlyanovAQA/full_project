@@ -18,6 +18,8 @@ allure {
 
 dependencies {
     testImplementation (
+            "io.rest-assured:rest-assured:4.3.1",
+            "org.assertj:assertj-core:3.19.0",
             "com.codeborne:selenide:5.25.0",
             "com.github.javafaker:javafaker:1.0.2",
             "org.junit.jupiter:junit-jupiter-api:5.8.0")
